@@ -1,18 +1,17 @@
 let convidados = []
 
-// Carregar convidados do Firebase ao iniciar
-firebase.database().ref('convidados').on('value', snapshot => {
-  convidados = []
-  snapshot.forEach(child => {
-    convidados.push({
-      nome: child.val().nome,
-      documento: child.val().documento || '',
-      presente: child.val().presente,
-      key: child.key
-    })
-  })
-  atualizarLista()
-})
+// Carrega os dados salvos no navegador ao iniciar
+window.onload = function () {
+  const dadosSalvos = localStorage.getItem('convidados')
+  if (dadosSalvos) {
+    convidados = JSON.parse(dadosSalvos)
+    atualizarLista()
+  }
+}
+
+function salvarNoLocalStorage() {
+  localStorage.setItem('convidados', JSON.stringify(convidados))
+}
 
 function adicionarConvidado() {
   const nomeInput = document.getElementById('nomeInput')
@@ -27,29 +26,43 @@ function adicionarConvidado() {
   }
 
   const novoConvidado = {
+    id: Date.now(), // ID único
     nome: nome,
     documento: documento,
     presente: false
   }
 
-  firebase.database().ref('convidados').push(novoConvidado)
+  convidados.push(novoConvidado)
+  salvarNoLocalStorage()
+  atualizarLista()
 
   nomeInput.value = ''
   docInput.value = ''
 }
 
-function confirmarPresenca(key) {
-  firebase.database().ref('convidados/' + key).update({ presente: true })
+function confirmarPresenca(id) {
+  const convidado = convidados.find(c => c.id === id)
+  if (convidado) {
+    convidado.presente = true
+    salvarNoLocalStorage()
+    atualizarLista()
+  }
 }
 
-function desmarcarPresenca(key) {
-  firebase.database().ref('convidados/' + key).update({ presente: false })
+function desmarcarPresenca(id) {
+  const convidado = convidados.find(c => c.id === id)
+  if (convidado) {
+    convidado.presente = false
+    salvarNoLocalStorage()
+    atualizarLista()
+  }
 }
 
-function excluirConvidado(key) {
-  const confirmacao = confirm('Tem certeza que deseja excluir este convidado?')
-  if (confirmacao) {
-    firebase.database().ref('convidados/' + key).remove()
+function excluirConvidado(id) {
+  if (confirm('Tem certeza que deseja excluir este convidado?')) {
+    convidados = convidados.filter(c => c.id !== id)
+    salvarNoLocalStorage()
+    atualizarLista()
   }
 }
 
@@ -75,10 +88,10 @@ function atualizarLista() {
       <div>
         ${
           convidado.presente
-            ? `<button onclick="desmarcarPresenca('${convidado.key}')">Desmarcar</button>`
-            : `<button onclick="confirmarPresenca('${convidado.key}')">Confirmar</button>`
+            ? `<button onclick="desmarcarPresenca(${convidado.id})">Desmarcar</button>`
+            : `<button onclick="confirmarPresenca(${convidado.id})">Confirmar</button>`
         }
-        <button onclick="excluirConvidado('${convidado.key}')">Excluir</button>
+        <button onclick="excluirConvidado(${convidado.id})">Excluir</button>
       </div>
     `
     lista.appendChild(item)
