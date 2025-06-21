@@ -4,28 +4,38 @@ let convidados = []
 firebase.database().ref('convidados').on('value', snapshot => {
   convidados = []
   snapshot.forEach(child => {
-    convidados.push({ nome: child.val().nome, presente: child.val().presente, key: child.key })
+    convidados.push({
+      nome: child.val().nome,
+      documento: child.val().documento || '',
+      presente: child.val().presente,
+      key: child.key
+    })
   })
   atualizarLista()
 })
 
 function adicionarConvidado() {
-  const input = document.getElementById('nomeInput')
-  const nome = input.value.trim()
+  const nomeInput = document.getElementById('nomeInput')
+  const docInput = document.getElementById('documentoInput')
 
-  if (nome === '') {
-    alert('Digite um nome válido!')
+  const nome = nomeInput.value.trim()
+  const documento = docInput.value.trim()
+
+  if (nome === '' || documento === '') {
+    alert('Preencha o nome e o CPF/RG!')
     return
   }
 
   const novoConvidado = {
     nome: nome,
+    documento: documento,
     presente: false
   }
 
   firebase.database().ref('convidados').push(novoConvidado)
 
-  input.value = ''
+  nomeInput.value = ''
+  docInput.value = ''
 }
 
 function confirmarPresenca(key) {
@@ -34,6 +44,13 @@ function confirmarPresenca(key) {
 
 function desmarcarPresenca(key) {
   firebase.database().ref('convidados/' + key).update({ presente: false })
+}
+
+function excluirConvidado(key) {
+  const confirmacao = confirm('Tem certeza que deseja excluir este convidado?')
+  if (confirmacao) {
+    firebase.database().ref('convidados/' + key).remove()
+  }
 }
 
 function atualizarLista() {
@@ -51,17 +68,19 @@ function atualizarLista() {
     const item = document.createElement('li')
     item.className = convidado.presente ? 'presente' : ''
     item.innerHTML = `
-  <span>${convidado.nome}</span>
-  <div>
-    ${
-      convidado.presente
-        ? `<button onclick="desmarcarPresenca('${convidado.key}')">Desmarcar</button>`
-        : `<button onclick="confirmarPresenca('${convidado.key}')">Confirmar</button>`
-    }
-    <button onclick="excluirConvidado('${convidado.key}')">Excluir</button>
-  </div>
-`
-
+      <span>
+        <strong>${convidado.nome}</strong><br />
+        <small>${convidado.documento}</small>
+      </span>
+      <div>
+        ${
+          convidado.presente
+            ? `<button onclick="desmarcarPresenca('${convidado.key}')">Desmarcar</button>`
+            : `<button onclick="confirmarPresenca('${convidado.key}')">Confirmar</button>`
+        }
+        <button onclick="excluirConvidado('${convidado.key}')">Excluir</button>
+      </div>
+    `
     lista.appendChild(item)
   })
 
@@ -81,11 +100,3 @@ function filtrarConvidados() {
     }
   })
 }
-
-function excluirConvidado(key) {
-  const confirmacao = confirm('Tem certeza que deseja excluir este convidado?')
-  if (confirmacao) {
-    firebase.database().ref('convidados/' + key).remove()
-  }
-}
-

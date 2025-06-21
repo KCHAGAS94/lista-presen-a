@@ -9,27 +9,23 @@
 <body>
   <div class="container">
     <h1>Lista de Convidados</h1>
-    <div class="input-section">
 
-
-  <div class="search-section">
-    <input type="text" id="pesquisaInput" placeholder="🔍 Pesquisar nome..." oninput="filtrarConvidados()" />
-  </div>
-
+    <div class="search-section">
+      <input type="text" id="pesquisaInput" placeholder="🔍 Pesquisar nome..." oninput="filtrarConvidados()" />
+    </div>
 
     <div class="input-section">
       <input type="text" id="nomeInput" placeholder="Digite o nome do convidado" />
+      <input type="text" id="documentoInput" placeholder="Digite o CPF ou RG" />
       <button onclick="adicionarConvidado()">Adicionar</button>
     </div>
 
-    <ul id="listaConvidados">
-     
-    </ul>
-    </div>
+    <ul id="listaConvidados"></ul>
+  </div>
 
-    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
-
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
   <script src="js/firebase.js"></script>
   <script src="js/script.js"></script>
 </body>
