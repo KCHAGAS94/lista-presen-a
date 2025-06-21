@@ -81,19 +81,20 @@ function atualizarLista() {
     const item = document.createElement('li')
     item.className = convidado.presente ? 'presente' : ''
     item.innerHTML = `
-      <span>
-        <strong>${convidado.nome}</strong><br />
-        <small>${convidado.documento}</small>
-      </span>
-      <div>
-        ${
-          convidado.presente
-            ? `<button onclick="desmarcarPresenca(${convidado.id})">Desmarcar</button>`
-            : `<button onclick="confirmarPresenca(${convidado.id})">Confirmar</button>`
-        }
-        <button onclick="excluirConvidado(${convidado.id})">Excluir</button>
-      </div>
-    `
+  <span>
+    <strong>${convidado.nome}</strong><br />
+    <small>${convidado.documento}</small>
+  </span>
+  <div>
+    ${
+      convidado.presente
+        ? `<button class="desmarcar" onclick="desmarcarPresenca(${convidado.id})">Desmarcar</button>`
+        : `<button class="confirmar" onclick="confirmarPresenca(${convidado.id})">Confirmar</button>`
+    }
+    <button class="excluir" onclick="excluirConvidado(${convidado.id})">Excluir</button>
+  </div>
+`
+
     lista.appendChild(item)
   })
 

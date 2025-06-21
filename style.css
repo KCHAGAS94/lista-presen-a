@@ -20,28 +20,47 @@ body {
 input {
   padding: 10px;
   width: 250px;
-  margin-right: 10px;
+  margin: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
 }
 
 button {
   padding: 10px 15px;
   cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  margin-left: 5px;
 }
 
 ul {
   list-style: none;
   padding: 0;
+  margin-top: 20px;
 }
 
 li {
   background-color: #f0f0f0;
   margin-bottom: 10px;
-  padding: 10px;
+  padding: 15px;
   border-radius: 5px;
   text-align: left;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+}
+
+li span {
+  flex: 1 1 70%;
+}
+
+li div {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  flex: 1 1 30%;
 }
 
 .presente {
@@ -56,11 +75,22 @@ li {
 .search-section input {
   padding: 10px;
   width: 250px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
 }
 
-.input-section input {
-  margin-bottom: 10px;
-  display: block;
-  margin: 10px auto;
-  width: 250px;
+/* Estilizando os botões */
+button.confirmar {
+  background-color: #007bff; /* azul */
+  color: white;
+}
+
+button.desmarcar {
+  background-color: #0b6623; /* verde escuro */
+  color: white;
+}
+
+button.excluir {
+  background-color: #d9534f; /* vermelho */
+  color: white;
 }
