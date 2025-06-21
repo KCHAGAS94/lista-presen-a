@@ -17,8 +17,8 @@ function adicionarConvidado() {
   const nomeInput = document.getElementById('nomeInput')
   const docInput = document.getElementById('documentoInput')
 
-  const nome = nomeInput.value.trim()
-  const documento = docInput.value.trim()
+  const nome = nomeInput.value.trim().toUpperCase()
+const documento = docInput.value.trim().toUpperCase()
 
   if (nome === '' || documento === '') {
     alert('Preencha o nome e o CPF/RG!')

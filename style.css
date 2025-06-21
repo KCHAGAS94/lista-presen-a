@@ -94,3 +94,8 @@ button.excluir {
   background-color: #d9534f; /* vermelho */
   color: white;
 }
+
+input#nomeInput,
+input#documentoInput {
+  text-transform: uppercase;
+}
