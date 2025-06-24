@@ -1,76 +1,51 @@
-let convidados = []
-
-// Carrega os dados salvos no navegador ao iniciar
-window.onload = function () {
-  const dadosSalvos = localStorage.getItem('convidados')
-  if (dadosSalvos) {
-    convidados = JSON.parse(dadosSalvos)
-    atualizarLista()
-  }
-}
-
-function salvarNoLocalStorage() {
-  localStorage.setItem('convidados', JSON.stringify(convidados))
-}
+const database = firebase.database()
 
 function adicionarConvidado() {
   const nomeInput = document.getElementById('nomeInput')
   const docInput = document.getElementById('documentoInput')
 
   const nome = nomeInput.value.trim().toUpperCase()
-const documento = docInput.value.trim().toUpperCase()
+  const documento = docInput.value.trim().toUpperCase()
 
   if (nome === '' || documento === '') {
     alert('Preencha o nome e o CPF/RG!')
     return
   }
 
+  const id = Date.now().toString()
+
   const novoConvidado = {
-    id: Date.now(), // ID único
-    nome: nome,
-    documento: documento,
+    id,
+    nome,
+    documento,
     presente: false
   }
 
-  convidados.push(novoConvidado)
-  salvarNoLocalStorage()
-  atualizarLista()
+  database.ref('convidados/' + id).set(novoConvidado)
 
   nomeInput.value = ''
   docInput.value = ''
 }
 
 function confirmarPresenca(id) {
-  const convidado = convidados.find(c => c.id === id)
-  if (convidado) {
-    convidado.presente = true
-    salvarNoLocalStorage()
-    atualizarLista()
-  }
+  database.ref('convidados/' + id + '/presente').set(true)
 }
 
 function desmarcarPresenca(id) {
-  const convidado = convidados.find(c => c.id === id)
-  if (convidado) {
-    convidado.presente = false
-    salvarNoLocalStorage()
-    atualizarLista()
-  }
+  database.ref('convidados/' + id + '/presente').set(false)
 }
 
 function excluirConvidado(id) {
   if (confirm('Tem certeza que deseja excluir este convidado?')) {
-    convidados = convidados.filter(c => c.id !== id)
-    salvarNoLocalStorage()
-    atualizarLista()
+    database.ref('convidados/' + id).remove()
   }
 }
 
-function atualizarLista() {
+function atualizarLista(convidados) {
   const lista = document.getElementById('listaConvidados')
   lista.innerHTML = ''
 
-  const listaOrdenada = [...convidados].sort((a, b) => {
+  const listaOrdenada = Object.values(convidados || {}).sort((a, b) => {
     if (a.presente !== b.presente) {
       return a.presente - b.presente
     }
@@ -81,19 +56,19 @@ function atualizarLista() {
     const item = document.createElement('li')
     item.className = convidado.presente ? 'presente' : ''
     item.innerHTML = `
-  <span>
-    <strong>${convidado.nome}</strong><br />
-    <small>${convidado.documento}</small>
-  </span>
-  <div>
-    ${
-      convidado.presente
-        ? `<button class="desmarcar" onclick="desmarcarPresenca(${convidado.id})">Desmarcar</button>`
-        : `<button class="confirmar" onclick="confirmarPresenca(${convidado.id})">Confirmar</button>`
-    }
-    <button class="excluir" onclick="excluirConvidado(${convidado.id})">Excluir</button>
-  </div>
-`
+      <span>
+        <strong>${convidado.nome}</strong><br />
+        <small>${convidado.documento}</small>
+      </span>
+      <div>
+        ${
+          convidado.presente
+            ? `<button class="desmarcar" onclick="desmarcarPresenca('${convidado.id}')">Desmarcar</button>`
+            : `<button class="confirmar" onclick="confirmarPresenca('${convidado.id}')">Confirmar</button>`
+        }
+        <button class="excluir" onclick="excluirConvidado('${convidado.id}')">Excluir</button>
+      </div>
+    `
 
     lista.appendChild(item)
   })
@@ -107,10 +82,11 @@ function filtrarConvidados() {
 
   itens.forEach(item => {
     const nome = item.querySelector('span').textContent.toLowerCase()
-    if (nome.includes(termo)) {
-      item.style.display = ''
-    } else {
-      item.style.display = 'none'
-    }
+    item.style.display = nome.includes(termo) ? '' : 'none'
   })
 }
+
+// Sempre que mudar no Firebase, atualiza a lista
+firebase.database().ref('convidados').on('value', snapshot => {
+  atualizarLista(snapshot.val())
+})
