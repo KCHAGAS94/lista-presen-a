@@ -1,29 +1,18 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Lista da Festa</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Menu Principal</title>
+  <link rel="stylesheet" href="css/index.css" />
 </head>
 <body>
   <div class="container">
-    <h1>Lista de Convidados</h1>
+    <h1>Bem-vindo</h1>
+    <p>Escolha uma das opções abaixo:</p>
 
-    <div class="search-section">
-      <input type="text" id="pesquisaInput" placeholder="🔍 Pesquisar nome..." oninput="filtrarConvidados()" />
-    </div>
-
-    <div class="input-section">
-      <input type="text" id="nomeInput" placeholder="Digite o nome do convidado" />
-      <input type="text" id="documentoInput" placeholder="Digite o CPF ou RG" />
-      <button onclick="adicionarConvidado()">Adicionar</button>
-    </div>
-
-    <ul id="listaConvidados"></ul>
+    <a href="agenda.html" class="btn">📅 Acessar Agenda</a>
+    <a href="lista-convidados.html" class="btn">📝 Lista de Convidados</a>
   </div>
-
-
-  <script src="js/script.js"></script>
 </body>
 </html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lista da Festa</title>
+  <link rel="stylesheet" href="css/lista-convidado.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Lista de Convidados</h1>
+
+    <div class="search-section">
+      <input type="text" id="pesquisaInput" placeholder="🔍 Pesquisar nome..." oninput="filtrarConvidados()" />
+    </div>
+
+    <div class="input-section">
+      <input type="text" id="nomeInput" placeholder="Digite o nome do convidado" />
+      <input type="text" id="documentoInput" placeholder="Digite o CPF ou RG" />
+      <button onclick="adicionarConvidado()">Adicionar</button>
+    </div>
+
+    <ul id="listaConvidados"></ul>
+  </div>
+
+
+  <script src="js/script.js"></script>
+</body>
+</html>

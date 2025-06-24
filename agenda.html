@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Minha Agenda</title>
+  <link rel="stylesheet" href="css/agenda.css" />
+</head>
+<body>
+
+  <div class="container">
+    <h1>Minha Agenda</h1>
+
+    <input type="text" id="titulo" placeholder="Título do compromisso" />
+    <input type="date" id="data" />
+    <input type="time" id="hora" />
+    <button onclick="adicionarCompromisso()">Adicionar</button>
+
+    <h2>Compromissos</h2>
+    <ul id="listaCompromissos"></ul>
+  </div>
+</body>
+
+
+ <!-- Firebase SDK compatível -->
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+
+<!-- Configuração Firebase -->
+<script src="js/agenda-firebase.js"></script>
+
+<!-- Seu código principal -->
+<script src="js/script-agenda.js"></script>
+
+
+  
+</body>
+</html>
