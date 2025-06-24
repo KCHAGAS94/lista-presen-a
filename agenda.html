@@ -9,13 +9,12 @@
 <body>
   <header>
     <div class="logo">
-      <a href="index.html">
-        <img src="img/logo-swingsamba1.jpg" alt="Logo do Evento" />
-      </a>
+      <img src="img/logo-swingsamba1.jpg" alt="Logo do Evento" />
     </div>
+
     <nav>
       <a href="index.html">Início</a>
-      <a href="agenda.html" class="active">Agenda</a>
+      <a href="agenda.html">Agenda</a>
       <a href="lista-convidados.html">Lista de Convidados</a>
     </nav>
   </header>
@@ -32,6 +31,15 @@
     <ul id="listaCompromissos"></ul>
   </div>
 
-  <!-- scripts Firebase e script-agenda.js -->
+   <!-- Firebase SDK compatível -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+
+  <!-- Configuração Firebase -->
+  <script src="js/agenda-firebase.js"></script>
+
+  <!-- Seu código principal -->
+  <script src="js/script-agenda.js"></script>
+  
 </body>
 </html>
