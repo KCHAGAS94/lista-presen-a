@@ -1,15 +1,28 @@
+/* ===== Reset básico ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ===== Body centralizado ===== */
 body {
   font-family: 'Segoe UI', sans-serif;
   background: linear-gradient(135deg, #f0f4f8, #e3f2fd);
   min-height: 100vh;
-  padding-top: 80px; /* espaço para o cabeçalho fixo */
+  padding-top: 60px; /* Espaço para o header fixo de 60px. Ajuste para 80px se o header for maior. */
+  display: flex;
+  justify-content: center; /* Centraliza horizontalmente */
+  align-items: flex-start;  /* Conteúdo inicia logo abaixo do header */
 }
 
+/* ===== Header fixo ===== */
 header {
   background-color: #070707;
   color: white;
   position: fixed;
   top: 0;
+  left: 0;
   width: 100%;
   height: 60px;
   padding: 0 20px;
@@ -17,113 +30,162 @@ header {
   align-items: center;
   justify-content: space-between;
   z-index: 1000;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
+/* ===== Logo no header ===== */
 .logo {
-  max-height: 60px;
   display: flex;
   align-items: center;
   overflow: hidden;
 }
-
 .logo img {
-  height: 40px;         /* altura ideal para caber no cabeçalho */
-  object-fit: contain;  /* evita esticar ou cortar */
+  height: 40px;       /* Cabe dentro dos 60px de header */
+  object-fit: contain;
   display: block;
 }
 
+/* ===== Nav no header ===== */
+nav {
+  display: flex;
+  gap: 20px;
+}
+nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 8px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+nav a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+nav a.active {
+  border-bottom: 2px solid #e0f7fa;
+}
+
+/* ===== Container centralizado ===== */
 .container {
   background-color: white;
   padding: 30px;
   border-radius: 10px;
-  display: inline-block;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  width: 100%;
+  margin-top: 20px; /* Afastamento do header */
 }
 
-.input-section {
+/* ===== Título ===== */
+h1 {
+  text-align: center;
+  color: #2c3e50;
   margin-bottom: 20px;
 }
 
-input {
+/* ===== Seção de busca ===== */
+.search-section {
+  margin-bottom: 20px;
+  text-align: center;
+}
+.search-section input {
   padding: 10px;
-  width: 250px;
-  margin: 5px;
+  width: 100%;
+  max-width: 300px;
   border-radius: 5px;
   border: 1px solid #ccc;
 }
 
-button {
+/* ===== Seção de inputs ===== */
+.input-section {
+  margin-bottom: 20px;
+  text-align: center;
+}
+.input-section input {
+  padding: 10px;
+  width: 100%;
+  max-width: 200px;
+  margin: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+.input-section button {
   padding: 10px 15px;
   cursor: pointer;
   border: none;
   border-radius: 5px;
   margin-left: 5px;
+  background-color: #3498db;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+.input-section button:hover {
+  background-color: #2980b9;
 }
 
-ul {
+/* ===== Lista de convidados ===== */
+#listaConvidados {
   list-style: none;
   padding: 0;
   margin-top: 20px;
 }
-
-li {
+#listaConvidados li {
   background-color: #f0f0f0;
   margin-bottom: 10px;
   padding: 15px;
   border-radius: 5px;
-  text-align: left;
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
 }
-
-li span {
+#listaConvidados li span {
   flex: 1 1 70%;
 }
-
-li div {
+#listaConvidados li div {
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
   justify-content: flex-end;
   flex: 1 1 30%;
 }
-
 .presente {
   background-color: #d4fcd4;
   font-weight: bold;
 }
 
-.search-section {
-  margin-bottom: 20px;
-}
-
-.search-section input {
-  padding: 10px;
-  width: 250px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-}
-
-/* Estilizando os botões */
-button.confirmar {
-  background-color: #007bff; /* azul */
+/* ===== Botões de ação ===== */
+#listaConvidados li button.confirmar {
+  background-color: #007bff;
   color: white;
 }
-
-button.desmarcar {
-  background-color: #0b6623; /* verde escuro */
+#listaConvidados li button.confirmar:hover {
+  background-color: #006ae6;
+}
+#listaConvidados li button.desmarcar {
+  background-color: #0b6623;
   color: white;
 }
-
-button.excluir {
-  background-color: #d9534f; /* vermelho */
+#listaConvidados li button.desmarcar:hover {
+  background-color: #08521a;
+}
+#listaConvidados li button.excluir {
+  background-color: #d9534f;
   color: white;
 }
+#listaConvidados li button.excluir:hover {
+  background-color: #c9302c;
+}
 
-input#nomeInput,
-input#documentoInput {
+/* ===== Inputs gerais ===== */
+input {
+  font-family: inherit;
+  font-size: 16px;
+  /* Se quiser controlar largura em formulários específicos, já está em .input-section */
+}
+
+/* ===== Forçar uppercase em inputs específicos ===== */
+#nomeInput,
+#documentoInput {
   text-transform: uppercase;
 }
