@@ -12,10 +12,9 @@
     <div class="logo">
       <img src="img/logo-swingsamba1.jpg" alt="Logo do Evento" />
     </div>
-
     <nav>
       <a href="painel.html">Início</a>
-      <a href="agenda.html">Agenda</a>
+      <a href="agenda.html" class="active">Agenda</a>
       <a href="lista-convidados.html">Lista de Convidados</a>
     </nav>
   </header>
@@ -23,24 +22,41 @@
   <div class="container">
     <h1>Minha Agenda</h1>
 
-    <input type="text" id="titulo" placeholder="Título do compromisso" />
-    <input type="date" id="data" />
-    <input type="time" id="hora" />
-    <button onclick="adicionarCompromisso()">Adicionar</button>
+    <!-- Campo Título -->
+    <div class="input-group">
+      <label for="titulo">Título</label>
+      <input type="text" id="titulo" placeholder="Título do compromisso" />
+    </div>
+
+    <!-- Campo Cidade -->
+    <div class="input-group">
+      <label for="cidade">Cidade</label>
+      <input type="text" id="cidade" placeholder="Cidade do compromisso" />
+    </div>
+
+    <!-- Campo Data -->
+    <div class="input-group">
+      <label for="data">Data</label>
+      <input type="date" id="data" />
+    </div>
+
+    <!-- Campo Hora -->
+    <div class="input-group">
+      <label for="hora">Hora</label>
+      <input type="time" id="hora" />
+    </div>
+
+    <!-- Botão Adicionar -->
+    <button class="action-btn adicionar" onclick="adicionarCompromisso()">Adicionar</button>
 
     <h2>Compromissos</h2>
     <ul id="listaCompromissos"></ul>
   </div>
 
-   <!-- Firebase SDK compatível -->
+  <!-- Firebase SDK compatível -->
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
-
-  <!-- Configuração Firebase -->
   <script src="js/agenda-firebase.js"></script>
-
-  <!-- Seu código principal -->
   <script src="js/script-agenda.js"></script>
-  
 </body>
 </html>

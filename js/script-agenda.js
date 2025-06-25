@@ -1,26 +1,27 @@
-
-
 // Inicializa Firebase
-
 const database = firebase.database();
 
+function formatarDataBR(dataISO) {
+  const [ano, mes, dia] = dataISO.split("-");
+  return `${dia}/${mes}/${ano}`;
+}
+
 function adicionarCompromisso() {
-  const titulo = document.getElementById("titulo").value;
+  const titulo = document.getElementById("titulo").value.trim();
+  const cidade = document.getElementById("cidade").value.trim();
   const data = document.getElementById("data").value;
   const hora = document.getElementById("hora").value;
-
-  if (titulo && data && hora) {
-    const id = Date.now().toString();
-
-    const compromisso = { id, titulo, data, hora };
-
-    database.ref("compromissos/" + id).set(compromisso);
-
-    // Limpa os campos
-    document.getElementById("titulo").value = "";
-    document.getElementById("data").value = "";
-    document.getElementById("hora").value = "";
+  if (!titulo || !cidade || !data || !hora) {
+    alert("Preencha todos os campos!");
+    return;
   }
+  const id = Date.now().toString();
+  const compromisso = { id, titulo, cidade, data, hora };
+  database.ref("compromissos/" + id).set(compromisso);
+  document.getElementById("titulo").value = "";
+  document.getElementById("cidade").value = "";
+  document.getElementById("data").value = "";
+  document.getElementById("hora").value = "";
 }
 
 function removerCompromisso(id) {
@@ -39,26 +40,44 @@ function renderizarCompromissos() {
   const lista = document.getElementById("listaCompromissos");
   database.ref("compromissos").on("value", (snapshot) => {
     lista.innerHTML = "";
-    snapshot.forEach((item) => {
+    const arr = [];
+    snapshot.forEach(item => {
       const dados = item.val();
-
+      const dt = new Date(`${dados.data}T${dados.hora}`);
+      arr.push({ ...dados, timestamp: dt.getTime() });
+    });
+    const now = Date.now();
+    const futuros = arr.filter(item => item.timestamp >= now).sort((a, b) => a.timestamp - b.timestamp);
+    const passados = arr.filter(item => item.timestamp < now).sort((a, b) => b.timestamp - a.timestamp);
+    const ordenados = futuros.concat(passados);
+    ordenados.forEach(dados => {
       const li = document.createElement("li");
-
-      const span = document.createElement("span");
-      span.innerText = `${dados.data} ${dados.hora} - ${dados.titulo}`;
-      li.appendChild(span);
-
+      // Data - Hora na mesma linha
+      const spanDataHora = document.createElement("div");
+      spanDataHora.className = "data-hora";
+      spanDataHora.innerText = `${formatarDataBR(dados.data)} - ${dados.hora}`;
+      li.appendChild(spanDataHora);
+      // Título em linha abaixo
+      const spanTitulo = document.createElement("div");
+      spanTitulo.className = "titulo";
+      spanTitulo.innerText = dados.titulo;
+      li.appendChild(spanTitulo);
+      // Cidade em linha abaixo
+      const spanCidade = document.createElement("div");
+      spanCidade.className = "cidade";
+      spanCidade.innerText = dados.cidade;
+      li.appendChild(spanCidade);
+      // Botões em linhas separadas
       const btnEditar = document.createElement("button");
       btnEditar.innerText = "Editar";
-      btnEditar.style.backgroundColor = "#3498db";
+      btnEditar.className = "editar";
       btnEditar.onclick = () => editarCompromisso(dados.id, dados);
       li.appendChild(btnEditar);
-
       const btnExcluir = document.createElement("button");
       btnExcluir.innerText = "Excluir";
+      btnExcluir.className = "excluir";
       btnExcluir.onclick = () => removerCompromisso(dados.id);
       li.appendChild(btnExcluir);
-
       lista.appendChild(li);
     });
   });

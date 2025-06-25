@@ -5,20 +5,16 @@
   box-sizing: border-box;
 }
 
-/* ===== Body: centralizar content ===== */
 body {
   font-family: 'Segoe UI', sans-serif;
   background: linear-gradient(135deg, #f0f4f8, #e3f2fd);
   min-height: 100vh;
-  padding-top: 60px; /* espaço para o header fixo; ajuste se for 80px */
+  padding-top: 60px;
   display: flex;
-  justify-content: center; /* centraliza horizontalmente */
-  /* align-items:center; se quiser centralizar verticalmente quando pouco conteúdo;
-     mas cuidado pois listas longas precisam rolar. Geralmente usamos align-items:flex-start */
+  justify-content: center;
   align-items: flex-start;
 }
 
-/* ===== Header ===== */
 header {
   background-color: #070707;
   color: white;
@@ -35,20 +31,11 @@ header {
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
-/* Logo */
-.logo {
-  max-height: 100%;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-}
 .logo img {
-  height: 40px;         /* cabe dentro dos 60px de header */
+  height: 40px;
   object-fit: contain;
-  display: block;
 }
 
-/* Nav básico (exemplo) */
 nav {
   display: flex;
   gap: 20px;
@@ -64,12 +51,10 @@ nav a {
 nav a:hover {
   background-color: rgba(255,255,255,0.1);
 }
-/* Opcional: destacar link ativo adicionando classe "active" no HTML ou via JS */
 nav a.active {
   border-bottom: 2px solid #e0f7fa;
 }
 
-/* ===== Container ===== */
 .container {
   background-color: #ffffff;
   padding: 30px;
@@ -77,89 +62,113 @@ nav a.active {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   max-width: 500px;
   width: 100%;
-  margin-top: 20px; /* afasta do topo (header) */
+  margin-top: 20px;
 }
 
-/* Títulos */
 h1, h2 {
   text-align: center;
   color: #2c3e50;
   margin-bottom: 20px;
 }
 
-/* Inputs e botões */
-input, button {
-  width: 100%;
-  padding: 12px;
+/* Estilo para grupos de input */
+.input-group {
+  display: flex;
+  flex-direction: column;
   margin-top: 10px;
+}
+.input-group label {
+  margin-bottom: 4px;
+  font-size: 14px;
+  color: #333;
+}
+.input-group input,
+.input-group select {
+  padding: 10px 12px;
   font-size: 16px;
   border: 1px solid #ccc;
-  border-radius: 8px;
-  outline: none;
-  transition: border-color 0.3s ease;
+  border-radius: 6px;
+  transition: border-color 0.3s ease, box-shadow 0.2s ease;
 }
-input:focus {
+.input-group input:focus,
+.input-group select:focus {
   border-color: #3498db;
+  box-shadow: 0 0 5px rgba(52,152,219,0.4);
 }
-button {
-  background-color: #3498db;
+
+/* Botão Adicionar */
+button.adicionar {
+  margin-top: 15px;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 6px;
+  background-color: #28a745;
   color: white;
-  font-weight: bold;
   border: none;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+  width: 100%;
 }
-button:hover {
-  background-color: #2980b9;
+button.adicionar:hover {
+  background-color: #218838;
+}
+button.adicionar:active {
+  transform: translateY(1px);
 }
 
 /* Lista de compromissos */
-ul {
+ul#listaCompromissos {
   list-style: none;
   padding: 0;
   margin-top: 20px;
 }
-li {
+ul#listaCompromissos li {
   background-color: #f9f9f9;
   border: 1px solid #dfe6e9;
   border-radius: 8px;
   padding: 12px;
   margin-top: 10px;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  gap: 4px;
 }
-li span {
-  flex-grow: 1;
+/* Exibição conforme solicitado: data-hora, título, cidade, botões em linhas separadas */
+ul#listaCompromissos li .data-hora {
+  font-weight: bold;
   color: #34495e;
 }
-li button {
-  background-color: #e74c3c;
-  color: white;
-  padding: 6px 10px;
-  border: none;
+ul#listaCompromissos li .titulo {
+  color: #2c3e50;
+  font-size: 16px;
+}
+ul#listaCompromissos li .cidade {
+  color: #555;
+  font-size: 14px;
+}
+ul#listaCompromissos li button {
+  padding: 6px 12px;
   border-radius: 6px;
+  border: none;
   cursor: pointer;
   font-size: 14px;
-  margin-left: 8px;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+  width: 100%;
+  margin-top: 4px;
 }
-li button:hover {
-  background-color: #c0392b;
+ul#listaCompromissos li button:active {
+  transform: translateY(1px);
 }
-/* Se quiser diferenciar o primeiro botão (ex.: editar) */
 li button.editar {
   background-color: #f39c12;
+  color: white;
 }
 li button.editar:hover {
   background-color: #d35400;
 }
-
-/* Ajuste para inputs específicos, se precisar */
-#titulo, #data, #hora {
-  width: 100%;
-  margin-top: 10px;
+li button.excluir {
+  background-color: #dc3545;
+  color: white;
 }
-
-/* Se quiser centralizar verticalmente quando pouco conteúdo e não tiver scroll longo,
-   poderia usar align-items: center no body; mas para listas maiores, flex-start é mais seguro. */
+li button.excluir:hover {
+  background-color: #c82333;
+}
