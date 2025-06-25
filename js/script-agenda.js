@@ -25,7 +25,9 @@ function adicionarCompromisso() {
 }
 
 function removerCompromisso(id) {
-  database.ref("compromissos/" + id).remove();
+  if (confirm("Tem certeza que deseja excluir este compromisso?")) {
+    database.ref("compromissos/" + id).remove();
+  }
 }
 
 function editarCompromisso(id, compromisso) {
