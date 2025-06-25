@@ -93,3 +93,17 @@ p {
 .btn:hover {
   background-color: #2980b9;
 }
+
+nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 8px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+nav a.active {
+  border-bottom: 2px solid #e0f7fa;
+}
+

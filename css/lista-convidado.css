@@ -64,6 +64,9 @@ nav a:hover {
 nav a.active {
   border-bottom: 2px solid #e0f7fa;
 }
+button:active {
+  transform: translateY(1px);
+}
 
 /* ===== Container centralizado ===== */
 .container {
