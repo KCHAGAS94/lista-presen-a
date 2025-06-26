@@ -12,9 +12,13 @@
     <div class="logo">
       <img src="img/logo-swingsamba1.jpg" alt="Logo do Evento" />
     </div>
-    <nav>
+    <!-- Botão de menu hamburguer -->
+    <button id="menu-btn" class="menu-btn" aria-label="Abrir menu">☰</button>
+
+    <!-- Menu de navegação -->
+    <nav id="menu" class="menu hidden">
       <a href="painel.html">Início</a>
-      <a href="agenda.html" class="active">Agenda</a>
+      <a href="agenda.html">Agenda</a>
       <a href="lista-convidados.html">Lista de Convidados</a>
     </nav>
   </header>
@@ -57,6 +61,6 @@
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
   <script src="js/agenda-firebase.js"></script>
-  <script src="js/script-agenda.js"></script>
+  <script src="js/agenda.js"></script>
 </body>
 </html>

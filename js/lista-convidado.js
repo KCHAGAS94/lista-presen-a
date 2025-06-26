@@ -1,5 +1,23 @@
 const database = firebase.database()
 
+
+  window.onload = function () {
+  const menuBtn = document.getElementById('menu-btn');
+  const menu = document.getElementById('menu');
+
+  if (menuBtn && menu) {
+    menuBtn.addEventListener('click', () => {
+      menu.classList.toggle('hidden');
+    });
+  }
+
+  // Atualiza lista na carga inicial
+  firebase.database().ref('convidados').on('value', snapshot => {
+    atualizarLista(snapshot.val());
+  });
+};
+
+
 function adicionarConvidado() {
   const nomeInput = document.getElementById('nomeInput')
   const docInput = document.getElementById('documentoInput')

@@ -1,6 +1,19 @@
 // Inicializa Firebase
 const database = firebase.database();
 
+window.onload = function () {
+  const menuBtn = document.getElementById('menu-btn');
+  const menu = document.getElementById('menu');
+  if (menuBtn && menu) {
+    menuBtn.addEventListener('click', () => {
+      menu.classList.toggle('hidden');
+    });
+  }
+
+  renderizarCompromissos(); // Inicia a lista da agenda
+};
+
+
 function formatarDataBR(dataISO) {
   const [ano, mes, dia] = dataISO.split("-");
   return `${dia}/${mes}/${ano}`;
@@ -85,4 +98,3 @@ function renderizarCompromissos() {
   });
 }
 
-renderizarCompromissos();

@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Painel</title>
-  <link rel="stylesheet" href="css/painel.css" />
+  <link rel="stylesheet" href="css/index.css" />
   <link rel="icon" href="img/swingsamba.icon.webp" type="image/x-icon" />
 </head>
 <body>
@@ -16,8 +16,12 @@
       </a>
     </div>
 
-    <nav>
-      <a href="painel.html" class="active">Início</a>
+    <!-- Botão de menu hamburguer -->
+    <button id="menu-btn" class="menu-btn" aria-label="Abrir menu">☰</button>
+
+    <!-- Menu de navegação -->
+    <nav id="menu" class="menu hidden">
+      <a href="painel.html">Início</a>
       <a href="agenda.html">Agenda</a>
       <a href="lista-convidados.html">Lista de Convidados</a>
     </nav>
@@ -31,5 +35,6 @@
     <a href="lista-convidados.html" class="btn">📝 Lista de Convidados</a>
   </main>
 
+  <script src="js/index.js"></script>
 </body>
 </html>
